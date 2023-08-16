@@ -418,7 +418,8 @@ function updateGameStatus(e) { //event listener, combinado com o this do input. 
                     
     // Choose letter
     let message, isWin = false;
-    let response = confirm(`${strings[language]["confirm-input"]} '${inputKey}'?`);
+    // let response = confirm(`${strings[language]["confirm-input"]} '${inputKey}'?`);
+    response = true;
     if (response === true) {
         disableKey(letterKeys[letters.indexOf(inputKey)]);
     } else {

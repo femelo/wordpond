@@ -18,7 +18,8 @@
 		}
 
 		#new-menu-item, #config-menu-item {
-			width: 85px;
+			font-size: 0.75rem;
+			width: 60px;
 		}
 
 		.menu, .score-bar {
@@ -49,7 +50,7 @@
 			padding-top: 0.25rem;
 			padding-bottom: 0.25rem;
 			color: #fff;
-			font-size: 0.875rem;
+			font-size: 0.750rem;
 			text-align: right;
 		}
 
