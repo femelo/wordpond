@@ -18,7 +18,7 @@
 		}
 
 		#new-menu-item, #config-menu-item {
-			font-size: 0.75rem;
+			font-size: 0.70rem;
 			width: 60px;
 		}
 
@@ -44,13 +44,13 @@
 		}
 
 		.score, .score-label {
-			width: 60px;
+			width: 40px;
 			padding-left: 0.5rem;
 			padding-right: 0.5rem;
 			padding-top: 0.25rem;
 			padding-bottom: 0.25rem;
 			color: #fff;
-			font-size: 0.750rem;
+			font-size: 0.700rem;
 			text-align: right;
 		}
 
