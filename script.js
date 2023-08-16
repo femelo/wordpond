@@ -95,8 +95,7 @@ newGameMenuItem.addEventListener(
             this.textContent = strings[language]["stop-game"];
             restartGame();
         } else {
-            gameStarted = false;
-            this.textContent = strings[language]["new-game"];
+            // this.textContent = strings[language]["new-game"];
             endGame();
             // Status bar
             messageElement.textContent = strings[language]["initial"];
@@ -495,6 +494,9 @@ function endGame() {
     disableAnimation();
     // Enable settings
     enableSettings();
+    gameStarted = false;
+    // Change button to 'new'
+    this.textContent = strings[language]["new-game"];
 }
 
 $(document).ready(
