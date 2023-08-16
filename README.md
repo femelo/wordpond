@@ -1,2 +1,2 @@
-# wordpond
+# WordPond
 A cool word guessing game
