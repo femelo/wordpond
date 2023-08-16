@@ -1,0 +1,60 @@
+{
+    "portuguese": {
+        "config-diff-label": "Dificuldade",
+        "config-diff": {
+            "easy": "Fácil",
+            "hard": "Difícil"
+        },
+        "config-lang-label": "Idioma",
+        "config-lang": {
+            "portuguese": "Português",
+            "english": "Inglês"
+        },
+        "score-tries": "Tent",
+        "score-streak": "Vit",
+        "about": "Criado por",
+        "about-close": "Fechar",
+        "confirm-settings": "Confirma",
+        "cancel-settings": "Cancela",
+        "new-game": "Iniciar",
+        "stop-game": "Parar",
+        "settings": "Configurar",
+        "initial": "Para jogar, clique em 'Iniciar'",
+        "confirm-input": "Você confirma",
+        "choose": "Escolha uma letra",
+        "choose-next": "Escolha a próxima letra",
+        "failure": "VOCÊ ERROU! A palavra não contém",
+        "loss": "Número máximo de erros atingido, VOCÊ PERDEU!",
+        "success": "ACERTOU! A palavra contém",
+        "win": "VOCÊ GANHOU! A palavra é"  
+    },
+    "english": {
+        "config-diff-label": "Difficulty",
+        "config-diff": {
+            "easy": "Easy",
+            "hard": "Hard"
+        },
+        "config-lang-label": "Language",
+        "config-lang": {
+            "portuguese": "Portuguese",
+            "english": "English"
+        },
+        "score-tries": "Tries",
+        "score-streak": "Streak",
+        "about": "Created by",
+        "about-close": "Close",
+        "confirm-settings": "Confirm",
+        "cancel-settings": "Cancel",
+        "new-game": "New",
+        "stop-game": "Stop",
+        "settings": "Settings",
+        "initial": "Press 'New' to play",
+        "confirm-input": "Do you confirm",
+        "choose": "Pick a letter",
+        "choose-next": "Pick the next letter",
+        "failure": "WRONG! The word does not contain",
+        "loss": "Maximum number of errors reached, YOU LOST!",
+        "success": "RIGHT! The word contains",
+        "win": "YOU WON! The word is"  
+    }
+}

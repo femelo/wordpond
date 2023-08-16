@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>WordPond</title>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1"/>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="wordpond.css">
+	<script src="script.js" defer></script>
+</head>
+
+<body>
+
+<nav class="menu navbar navbar-expand-lg navbar-primary bg-primary">
+	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+		<div id="menu-group-1" class="btn-group" role="group" aria-label="Group 1">
+			<button id="about-menu-item" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#about-dialog"><img src="assets/logo.png" width="30" height="30"/></button>
+		</div>
+		<div class="btn-group mr-2" role="group" aria-label="Group 2">
+			<button id="new-menu-item" type="button" class="btn btn-primary btn-sm">New</button>
+			<!-- <button id="end-menu-item" type="button" class="btn btn-primary btn-sm">Quit</button> -->
+			<button id="config-menu-item" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#config-dialog">Settings</button>
+		</div>
+	</div>
+	<div class="score-group">
+		<div id="score-tries-label" class="score-label score">Tries:</div>
+		<div id="score-tries" class="score">0</div>
+		<div id="score-streak-label" class="score-label score">Streak:</div>
+		<div id="score-streak" class="score">0</div>
+		<div id="score-mode" class="score score-mode-disabled">Mode</div>
+	</div>
+</nav>
+<div id="message-bar" class="alert" role="alert">Status</div>
+<div id="main-container">
+	<div id="letter-grid">
+		<div class="letter-grid-row">
+			<div class="letter-cell" id="display00"></div> 
+			<div class="letter-cell" id="display01"></div>
+			<div class="letter-cell" id="display02"></div>
+			<div class="letter-cell" id="display03"></div>
+			<div class="letter-cell" id="display04"></div>
+			<div class="letter-cell" id="display05"></div>
+			<div class="letter-cell" id="display06"></div>
+		</div>
+		<div class="letter-grid-row">
+			<div class="letter-cell" id="display10"></div> 
+			<div class="letter-cell" id="display11"></div>
+			<div class="letter-cell" id="display12"></div>
+			<div class="letter-cell" id="display13"></div>
+			<div class="letter-cell" id="display14"></div>
+			<div class="letter-cell" id="display15"></div>
+			<div class="letter-cell" id="display16"></div>
+		</div>
+		<div class="letter-grid-row">
+			<div class="letter-cell" id="display20"></div> 
+			<div class="letter-cell" id="display21"></div>
+			<div class="letter-cell" id="display22"></div>
+			<div class="letter-cell" id="display23"></div>
+			<div class="letter-cell" id="display24"></div>
+			<div class="letter-cell" id="display25"></div>
+			<div class="letter-cell" id="display26"></div>
+		</div>
+		<div class="letter-grid-row">
+			<div class="letter-cell" id="display30"></div> 
+			<div class="letter-cell" id="display31"></div>
+			<div class="letter-cell" id="display32"></div>
+			<div class="letter-cell" id="display33"></div>
+			<div class="letter-cell" id="display34"></div>
+			<div class="letter-cell" id="display35"></div>
+			<div class="letter-cell" id="display36"></div>
+		</div>
+		<div class="letter-grid-row">
+			<div class="letter-cell" id="display40"></div> 
+			<div class="letter-cell" id="display41"></div>
+			<div class="letter-cell" id="display42"></div>
+			<div class="letter-cell" id="display43"></div>
+			<div class="letter-cell" id="display44"></div>
+			<div class="letter-cell" id="display45"></div>
+			<div class="letter-cell" id="display46"></div>
+		</div>
+		<div class="letter-grid-row">
+			<div class="letter-cell" id="display50"></div> 
+			<div class="letter-cell" id="display51"></div>
+			<div class="letter-cell" id="display52"></div>
+			<div class="letter-cell" id="display53"></div>
+			<div class="letter-cell" id="display54"></div>
+			<div class="letter-cell" id="display55"></div>
+			<div class="letter-cell" id="display56"></div>
+		</div>
+		<div class="letter-grid-row">
+			<div class="letter-cell" id="display60"></div> 
+			<div class="letter-cell" id="display61"></div>
+			<div class="letter-cell" id="display62"></div>
+			<div class="letter-cell" id="display63"></div>
+			<div class="letter-cell" id="display64"></div>
+			<div class="letter-cell" id="display65"></div>
+			<div class="letter-cell" id="display66"></div>
+		</div>
+	</div>
+	<div id="letter-keyboard">
+		<div class="letter-keyboard-row">
+			<button class="letter-button" onclick="updateGameStatus(this)" id="tkA" name="A" value="A" disabled="">A</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkB" name="B" value="B" disabled="">B</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkC" name="C" value="C" disabled="">C</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkD" name="D" value="D" disabled="">D</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkE" name="E" value="E" disabled="">E</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkF" name="F" value="F" disabled="">F</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkG" name="G" value="G" disabled="">G</button>
+		</div>
+		<div class="letter-keyboard-row">
+			<button class="letter-button" onclick="updateGameStatus(this)" id="tkH" name="H" value="H" disabled="">H</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkI" name="I" value="I" disabled="">I</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkJ" name="J" value="J" disabled="">J</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkK" name="K" value="K" disabled="">K</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkL" name="L" value="L" disabled="">L</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkM" name="M" value="M" disabled="">M</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkN" name="N" value="N" disabled="">N</button>
+		</div>
+		<div class="letter-keyboard-row">
+			<button class="letter-button" onclick="updateGameStatus(this)" id="tkO" name="O" value="O" disabled="">O</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkP" name="P" value="P" disabled="">P</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkQ" name="Q" value="Q" disabled="">Q</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkR" name="R" value="R" disabled="">R</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkS" name="S" value="S" disabled="">S</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkT" name="T" value="T" disabled="">T</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkU" name="U" value="U" disabled="">U</button>
+		</div>
+		<div class="letter-keyboard-row">
+			<button class="letter-button" onclick="updateGameStatus(this)" id="tkV" name="V" value="V" disabled="">V</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkW" name="W" value="W" disabled="">W</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkX" name="X" value="X" disabled="">X</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkY" name="Y" value="Y" disabled="">Y</button>
+        	<button class="letter-button" onclick="updateGameStatus(this)" id="tkZ" name="Z" value="Z" disabled="">Z</button>
+			<button class="dummy-button" onclick="" id="tkDummy1" name="V" value="V" disabled=""></button>
+        	<button class="dummy-button" onclick="" id="tkDummy2" name="W" value="W" disabled=""></button>
+		</div>
+	</div>
+</div>
+
+<div id="config-dialog" class="modal modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  	<h6 id="settings-title" class="modal-title">Settings</h6>
+		  	<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+		  	</button>
+		</div>
+		<div class="modal-body">
+			<div>
+				<div class="select">
+					<div id="settings-diff-label" class="select-label">Difficulty:</div>
+					<select class="select-input" id="select-difficulty" style="display: block">
+						<option id="settings-diff-easy" value="easy">Easy</option>
+						<option id="settings-diff-hard" value="hard">Hard</option>
+					</select>
+				</div>
+			</div>
+			<div>
+				<div class="select">
+					<div id="settings-lang-label" class="select-label">Language:</div>
+					<select class="select-input" id="select-language" style="display: block">
+						<option id="settings-lang-english" value="english">English</option>
+						<option id="settings-lang-portuguese" value="portuguese">Portuguese</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="confirm-config-button" type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">Confirm</button>
+			<button id="cancel-config-button" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<div id="about-dialog" class="modal modal-sm" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<img src="assets/logo.png" width="30" height="30"/>
+				<!-- <h6 class="modal-title">WordPond</h6> -->
+				<img src="assets/word-pond.png" style="margin-left: 20px; margin-right: 20px" width="180"/>
+				<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p id="about-created-by">Created by</p>
+				<ul style="list-style-type: none">
+					<li>
+						<a href="mailto: mauro.sobhie@gmail.com">Mauro Sobhie</a>
+					</li>
+					<li>
+						<a href="mailto: flavio.eler@gmail.com">Flávio De Melo</a>
+					</li>
+				</ul>
+			</div>
+			<div class="modal-footer">
+				<button id="about-btn-close" type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">Fechar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+
+</html>
+

@@ -1,2 +1,3 @@
 # WordPond
-A cool word guessing game
+
+A cool word guessing game.
