@@ -496,7 +496,7 @@ function endGame() {
     enableSettings();
     gameStarted = false;
     // Change button to 'new'
-    this.textContent = strings[language]["new-game"];
+    newGameMenuItem.textContent = strings[language]["new-game"];
 }
 
 $(document).ready(
