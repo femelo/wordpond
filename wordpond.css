@@ -12,9 +12,14 @@
 			}
 		}
 		
-		@font-face {
+		/* @font-face {
 			font-family: 'Fish Hook';
-			src: url("assets/fishhook-font.ttf");
+			src: url("assets/fish-hook-font.ttf");
+		} */
+
+		@font-face {
+			font-family: 'Fishing Hooks';
+			src: url("assets/fishing-hooks-regular.otf");
 		}
 
 		#new-menu-item, #config-menu-item {
@@ -163,7 +168,7 @@
 
 		.letter-button { /* keyboard buttons */
 		  width: 30px;
-		  font-family: 'Fish Hook';
+		  font-family: 'Fishing Hooks';
 		  font-size: 1.2rem;
 		  font-weight: 800;
 		  cursor: pointer;
