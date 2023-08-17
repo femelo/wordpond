@@ -483,7 +483,7 @@ function updateGameStatus(e) { //event listener, combinado com o this do input. 
         messageElement.classList.remove(`alert-${messageStatus}`);
         messageStatus = "success";
         messageElement.classList.add(`alert-${messageStatus}`);
-        updateDisplay(resample = false);
+        updateDisplay(resample = (numOfCorrectGuesses === 1));
     }
 
     console.log ("Acertos: " + numOfCorrectGuesses);
