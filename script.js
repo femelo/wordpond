@@ -13,7 +13,8 @@ const languageSelect = document.getElementById("select-language");
 const confirmConfigButton = document.getElementById("confirm-config-button");
 const cancelConfigButton = document.getElementById("cancel-config-button");
 
-// const configDialog = document.getElementById("config-dialog");
+const letterCells = Array.from(document.getElementsByClassName("letter-cell"));
+console.log(letterCells);
 
 // Recursive permutation operation
 const permutator = (inputArr) => {
@@ -55,6 +56,8 @@ messageElement.classList.add(`alert-${messageStatus}`);
 //const languageSelect = document.getElementById("mySelect");
 const displayDiv = document.getElementById("letter-grid");
 const frameState = {
+    reverse: false,
+    indices: null,
     frame: null,
     solutionIndex: 0,
     horizontal: true
@@ -85,6 +88,8 @@ let winStreak = 0;
 let selectedWord = null;
 // Game initiated flag
 let gameStarted = false;
+// Flag to indicate win
+let isWin = false;
 
 // For menu items
 newGameMenuItem.addEventListener(
@@ -96,6 +101,8 @@ newGameMenuItem.addEventListener(
             restartGame();
         } else {
             // this.textContent = strings[language]["new-game"];
+            numOfTries = 0;
+            updateTries();
             endGame();
             // Status bar
             messageElement.textContent = strings[language]["initial"];
@@ -116,6 +123,8 @@ confirmConfigButton.addEventListener(
     }
 );
 
+letterCells.forEach((el) => el.addEventListener("animationiteration", (e) => updateDisplay()));
+
 // Helper functions
 // Clear guessed letters
 function clearGuessedLetters() {
@@ -124,6 +133,8 @@ function clearGuessedLetters() {
 
 // Clear display
 function clearDisplay() {
+    frameState.reverse = false;
+    frameState.indices = null;
     frameState.frame = null;
     frameState.solutionIndex = 0;
     frameState.horizontal = true;
@@ -349,7 +360,7 @@ function generateRows(letterArray) {
 }
 
 // Generate local frame
-function generateLocalFrame() {
+function generateLocalFrame(resample = true) {
     let letterArray = guessedLetters.slice(0);
     const localFrame = [];
     // If no guessed letter exists, return empty frame
@@ -360,36 +371,40 @@ function generateLocalFrame() {
         return localFrame;
     }
     // Reverse?
-    if (Math.random() < 0.5) {
+    const reverse = resample? (Math.random() < 0.5) : frameState.reverse;
+    if (reverse) {
         letterArray = letterArray.reverse(); 
     }
     // Generate rows
     const rows = generateRows(letterArray);
     // Scramble rows into frame
-    const indices = choose([...Array(rows.length).keys()], rows.length);
+    const indices = resample? choose([...Array(rows.length).keys()], rows.length) : frameState.indices;
     for (const i of indices) {
         localFrame.push(rows[i]);
     }
+    const horizontal = resample? (Math.random() < 0.5) : frameState.horizontal;
     // Save frame state
+    frameState.reverse = reverse;
+    frameState.indices = indices;
     frameState.frame = localFrame;
-    frameState.solutionIndex = indices.indexOf(0); 
-    frameState.horizontal = (Math.random() < 0.5);
+    frameState.solutionIndex = indices.indexOf(0);
+    frameState.horizontal = horizontal;
 }
 
 // Update display
-function updateDisplay(highlightWin = false) { // se clicar dentro do tempo, essa função é ativada.
-    generateLocalFrame();
-    updateDisplayElements(highlightWin);
+function updateDisplay(resample = true) { // se clicar dentro do tempo, essa função é ativada.
+    generateLocalFrame(resample);
+    updateDisplayElements();
 }
 
 // Update display elements
-function updateDisplayElements(highlightWin = false) {
+function updateDisplayElements() {
     for (let i = 0; i < frame.length; i++) {
         for (let j = 0; j < frame[i].length; j++) {
             const indices = frameState.horizontal? [i, j] : [j, i];
             const solutionIndex = frameState.horizontal? indices[0] : indices[1];
             frame[indices[0]][indices[1]].textContent = (frameState.frame === null)? "" : frameState.frame[i][j];
-            if (highlightWin && solutionIndex === frameState.solutionIndex) {
+            if (isWin && solutionIndex === frameState.solutionIndex) {
                 frame[indices[0]][indices[1]].style.backgroundColor = "lightgreen";
             } else {
                 frame[indices[0]][indices[1]].removeAttribute("style");
@@ -416,7 +431,8 @@ function updateGameStatus(e) { //event listener, combinado com o this do input. 
     console.log(inputKey);
                     
     // Choose letter
-    let message, isWin = false;
+    let message;
+    isWin = false;
     // let response = confirm(`${strings[language]["confirm-input"]} '${inputKey}'?`);
     response = true;
     if (response === true) {
@@ -425,7 +441,7 @@ function updateGameStatus(e) { //event listener, combinado com o this do input. 
         inputKey = null;
         message = strings[language]["choose-next"];
         messageElement.textContent = message;
-        return	
+        return;
     }
 
     // Update scores and display
@@ -467,12 +483,12 @@ function updateGameStatus(e) { //event listener, combinado com o this do input. 
         messageElement.classList.remove(`alert-${messageStatus}`);
         messageStatus = "success";
         messageElement.classList.add(`alert-${messageStatus}`);
+        updateDisplay(resample = false);
     }
 
     console.log ("Acertos: " + numOfCorrectGuesses);
     console.log ("Erros: " + numOfWrongGuesses);
 
-    updateDisplay(highlightWin = isWin);
     if (isWin) {
         winStreak++;
         updateStreak();
@@ -484,12 +500,11 @@ function updateGameStatus(e) { //event listener, combinado com o this do input. 
 function endGame() {
     numOfCorrectGuesses = 0;
     numOfWrongGuesses = 0;
-    numOfTries = 0;
-    updateTries();
+    // numOfTries = 0;
+    // updateTries();
     selectedWord = null;
     clearGuessedLetters();
-    // document.getElementById("stop").disabled = true; 
-    disableAllKeys();
+    // disableAllKeys();
     // Disable animation
     disableAnimation();
     // Enable settings
